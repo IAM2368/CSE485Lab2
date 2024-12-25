@@ -11,3 +11,4 @@ Route::get('/', function () {
 Route::resource('books', BookController::class);
 Route::resource('readers', ReaderController::class);
 Route::resource('borrows', BorrowController::class);
+

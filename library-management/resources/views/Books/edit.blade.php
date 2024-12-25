@@ -8,23 +8,23 @@
             @method('PUT')
             <div class="form-group">
                 <label for="name">Tên sách:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $books->name) }}" required>
             </div>
             <div class="form-group">
                 <label for="author">Tác giả:</label>
-                <input type="text" class="form-control" id="author" name="author" required>
+                <input type="text" class="form-control" id="author" name="author" value="{{ old('author', $books->author) }}" required>
             </div>
             <div class="form-group">
                 <label for="category">Loại sách:</label>
-                <input type="text" class="form-control" id="category" name="category" required>
+                <input type="text" class="form-control" id="category" name="category" value="{{ old('category', $books->category) }}" required>
             </div>
             <div class="form-group">
                 <label for="year">Năm sản xuất:</label>
-                <input type="text" class="form-control" id="year" name="year" required>
+                <input type="text" class="form-control" id="year" name="year" value="{{ old('year', $books->year) }}" required>
             </div>
             <div class="form-group">
                 <label for="quantity">Số lượng:</label>
-                <input type="text" class="form-control" id="quantity" name="quantity" required>
+                <input type="text" class="form-control" id="quantity" name="quantity" value="{{ old('quantity', $books->quantity) }}" required>
             </div>
             <p></p>
             <button type="submit" class="btn btn-primary">Lưu</button>

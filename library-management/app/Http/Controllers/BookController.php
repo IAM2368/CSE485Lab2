@@ -11,9 +11,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::orderBy('created_at', 'desc')->get();
         return view('books.index', compact('books'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,17 +30,18 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'quantity' => 'required|integer|min:1',
+            'name' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+            'year' => 'required',
+            'quantity' => 'required',
         ]);
-    
+
         Book::create($validated);
-    
+
         return redirect()->route('books.index')->with('success', 'Thêm sách thành công!');
     }
+
 
     /**
      * Display the specified resource.
@@ -63,20 +65,22 @@ class BookController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'author' => 'required',
-        ]);
-        $books = Book::findOrFail($id);
-        $books->update([
-            'name' => $request->input('name'),
-            'author' => $request->input('author'),
-            'category' => $request->input('category'),
-            'year' => $request->input('year'),
-            'quantity' => $request->input('quantity'),
-        ]);
-    }
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'author' => 'required|string|max:255',
+        'category' => 'required|string|max:255',
+        'year' => 'required|integer',
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $books = Book::findOrFail($id);
+    $books->update($validated);
+
+    // Điều hướng về trang index với thông báo thành công
+    return redirect()->route('books.index')->with('success', 'Cập nhật sách thành công!');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -87,5 +91,5 @@ class BookController extends Controller
         $books->delete();
         return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
 
-    }
+    }   
 }
